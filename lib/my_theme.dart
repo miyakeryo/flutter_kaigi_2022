@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class MyThemeData {
@@ -14,9 +15,26 @@ abstract class MyThemeData {
   static final dark = ThemeData.from(
     colorScheme: const ColorScheme.dark(
       primary: Colors.blue,
-      background: Color(0xFF101010),
+      background: Color(0xFF202020),
     ),
   );
+
+  static const _systemUiOverlayStyleLight = SystemUiOverlayStyle(
+    statusBarBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  );
+  static const _systemUiOverlayStyleDark = SystemUiOverlayStyle(
+    statusBarBrightness: Brightness.dark,
+    statusBarIconBrightness: Brightness.light,
+    systemNavigationBarColor: Colors.black,
+    systemNavigationBarIconBrightness: Brightness.light,
+  );
+  static void updateSystemUIOverlayStyle(bool isDark) {
+    SystemChrome.setSystemUIOverlayStyle(
+        isDark ? _systemUiOverlayStyleDark : _systemUiOverlayStyleLight);
+  }
 }
 
 class MyThemeSettings extends ChangeNotifier {
@@ -31,6 +49,7 @@ class MyThemeSettings extends ChangeNotifier {
   set themeMode(ThemeMode themeMode) {
     _themeMode = themeMode;
     prefs.setInt('ThemeMode', themeMode.index);
+    MyThemeData.updateSystemUIOverlayStyle(isDark);
     notifyListeners();
   }
 
@@ -44,4 +63,6 @@ class MyThemeSettings extends ChangeNotifier {
         return WidgetsBinding.instance.window.platformBrightness;
     }
   }
+
+  bool get isDark => brightness == Brightness.dark;
 }

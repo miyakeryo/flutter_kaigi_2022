@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
           create: (_) => MyThemeSettings(prefs),
           child: Consumer<MyThemeSettings>(
             builder: (context, myThemeSettings, _) {
+              Future.microtask(() {
+                MyThemeData.updateSystemUIOverlayStyle(myThemeSettings.isDark);
+              });
               return MaterialApp(
                 title: 'Flutter Demo',
                 theme: MyThemeData.light,
