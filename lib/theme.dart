@@ -7,12 +7,14 @@ abstract class MyThemeData {
   static final light = ThemeData.from(
     colorScheme: const ColorScheme.light(
       primary: Colors.blue,
+      background: Color(0xFFEFEFEF),
     ),
   );
 
   static final dark = ThemeData.from(
     colorScheme: const ColorScheme.dark(
       primary: Colors.blue,
+      background: Color(0xFF202020),
     ),
   );
 }
