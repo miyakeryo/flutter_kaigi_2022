@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class MyThemeData {
   MyThemeData._();
@@ -17,10 +18,17 @@ abstract class MyThemeData {
 }
 
 class MyTheme extends ChangeNotifier {
+  final SharedPreferences prefs;
+  MyTheme(this.prefs) {
+    final index = prefs.getInt('ThemeMode') ?? 0;
+    _themeMode = ThemeMode.values[index];
+  }
+
   var _themeMode = ThemeMode.system;
   ThemeMode get themeMode => _themeMode;
   set themeMode(ThemeMode themeMode) {
     _themeMode = themeMode;
+    prefs.setInt('ThemeMode', themeMode.index);
     notifyListeners();
   }
 
