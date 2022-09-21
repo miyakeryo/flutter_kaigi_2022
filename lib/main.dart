@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'home.dart';
 import 'theme.dart';
@@ -12,11 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: MyTheme.light,
-      darkTheme: MyTheme.dark,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return ChangeNotifierProvider(
+      create: (_) => MyTheme(),
+      child: Consumer<MyTheme>(
+        builder: (context, myTheme, _) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: MyThemeData.light,
+            darkTheme: MyThemeData.dark,
+            themeMode: myTheme.themeMode,
+            home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          );
+        },
+      ),
     );
   }
 }
