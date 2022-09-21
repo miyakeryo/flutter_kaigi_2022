@@ -51,4 +51,12 @@ class OreThemeData {
   static const dark = OreThemeData(
     settingsTileColor: Colors.black,
   );
+
+  OreThemeData copyWith({
+    Color? settingsTileColor,
+  }) {
+    return OreThemeData(
+      settingsTileColor: settingsTileColor ?? this.settingsTileColor,
+    );
+  }
 }
