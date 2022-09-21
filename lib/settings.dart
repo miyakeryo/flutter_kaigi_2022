@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'theme.dart';
+import 'my_theme.dart';
+import 'ore_theme.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -13,7 +14,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final myTheme = context.read<MyTheme>();
+    final myThemeSettings = context.read<MyThemeSettings>();
+    final oreTheme = OreTheme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('外観モード設定'),
@@ -24,11 +26,12 @@ class _SettingsPageState extends State<SettingsPage> {
           ...ThemeMode.values.map((themeMode) {
             return RadioListTile(
               title: Text(themeMode.text),
+              tileColor: oreTheme.settingsTileColor,
               value: themeMode,
-              groupValue: myTheme.themeMode,
+              groupValue: myThemeSettings.themeMode,
               onChanged: (_) {
                 setState(() {
-                  myTheme.themeMode = themeMode;
+                  myThemeSettings.themeMode = themeMode;
                 });
               },
             );

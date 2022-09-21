@@ -14,14 +14,14 @@ abstract class MyThemeData {
   static final dark = ThemeData.from(
     colorScheme: const ColorScheme.dark(
       primary: Colors.blue,
-      background: Color(0xFF202020),
+      background: Color(0xFF101010),
     ),
   );
 }
 
-class MyTheme extends ChangeNotifier {
+class MyThemeSettings extends ChangeNotifier {
   final SharedPreferences prefs;
-  MyTheme(this.prefs) {
+  MyThemeSettings(this.prefs) {
     final index = prefs.getInt('ThemeMode') ?? 0;
     _themeMode = ThemeMode.values[index];
   }

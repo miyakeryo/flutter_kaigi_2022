@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
-import 'theme.dart';
+import 'my_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
         final prefs = snapshot.data;
         if (prefs == null) return const SizedBox();
         return ChangeNotifierProvider(
-          create: (_) => MyTheme(prefs),
-          child: Consumer<MyTheme>(
-            builder: (context, myTheme, _) {
+          create: (_) => MyThemeSettings(prefs),
+          child: Consumer<MyThemeSettings>(
+            builder: (context, myThemeSettings, _) {
               return MaterialApp(
                 title: 'Flutter Demo',
                 theme: MyThemeData.light,
                 darkTheme: MyThemeData.dark,
-                themeMode: myTheme.themeMode,
+                themeMode: myThemeSettings.themeMode,
                 home: const MyHomePage(title: 'Flutter Demo Home Page'),
               );
             },
