@@ -23,20 +23,64 @@ class MyApp extends StatelessWidget {
           create: (_) => MyThemeSettings(prefs),
           child: Consumer<MyThemeSettings>(
             builder: (context, myThemeSettings, _) {
-              Future.microtask(() {
-                MyThemeData.updateSystemUIOverlayStyle(myThemeSettings.isDark);
-              });
-              return MaterialApp(
-                title: 'Flutter Demo',
-                theme: MyThemeData.light,
-                darkTheme: MyThemeData.dark,
-                themeMode: myThemeSettings.themeMode,
-                home: const MyHomePage(title: 'Flutter Demo Home Page'),
-              );
+              return _MyMaterialApp();
             },
           ),
         );
       },
     );
+  }
+}
+
+class _MyMaterialApp extends StatefulWidget {
+  @override
+  State<_MyMaterialApp> createState() => _MyMaterialAppState();
+}
+
+class _MyMaterialAppState extends State<_MyMaterialApp>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    Future.microtask(_updateSystemUIOverlayStyle);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final myThemeSettings = context.read<MyThemeSettings>();
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: MyThemeData.light,
+      darkTheme: MyThemeData.dark,
+      themeMode: myThemeSettings.themeMode,
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+
+  void _updateSystemUIOverlayStyle() {
+    final myThemeSettings = context.read<MyThemeSettings>();
+    MyThemeData.updateSystemUIOverlayStyle(myThemeSettings.isDark);
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    _updateSystemUIOverlayStyle();
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _updateSystemUIOverlayStyle();
+    }
   }
 }

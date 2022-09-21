@@ -44,7 +44,9 @@ class OreTheme extends StatelessWidget {
 class OreThemeData {
   final Color settingsTileColor;
 
-  const OreThemeData({required this.settingsTileColor});
+  const OreThemeData({
+    required this.settingsTileColor,
+  });
   static const light = OreThemeData(
     settingsTileColor: Colors.white,
   );
