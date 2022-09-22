@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'settings.dart';
+import 'list_page.dart';
+import 'settings_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -44,6 +45,15 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            const SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const ListPage(),
+                ));
+              },
+              child: const Text('リストページ'),
             ),
           ],
         ),
