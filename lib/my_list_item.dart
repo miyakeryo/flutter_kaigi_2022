@@ -30,7 +30,7 @@ class MyListItem extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Image.network(
-                'https://www.dummyimage.online/180x180/666666/ffffff?text=',
+                'https://www.dummyimage.online/180x180/666666/ffffff',
                 width: 48,
                 height: 48,
               ),

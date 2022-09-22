@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'my_list_item.dart';
 import 'ore_theme.dart';
+import 'settings_page.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -16,6 +17,17 @@ class _ListPageState extends State<ListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('リストページ'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => const SettingsPage(),
+                fullscreenDialog: true,
+              ));
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: 30,
