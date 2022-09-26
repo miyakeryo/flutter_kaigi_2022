@@ -38,6 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
           }),
         ],
       ),
+      backgroundColor: oreTheme.settingsBackgroundColor,
     );
   }
 }

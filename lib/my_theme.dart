@@ -8,7 +8,7 @@ abstract class MyThemeData {
   static final light = ThemeData.from(
     colorScheme: const ColorScheme.light(
       primary: Colors.blue,
-      background: Color(0xFFEFEFEF),
+      background: Colors.white,
     ),
   );
 
@@ -24,12 +24,14 @@ abstract class MyThemeData {
     statusBarIconBrightness: Brightness.dark,
     systemNavigationBarColor: Colors.white,
     systemNavigationBarIconBrightness: Brightness.dark,
+    systemNavigationBarDividerColor: Color(0xFFE0E0E0),
   );
   static const _systemUiOverlayStyleDark = SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark,
     statusBarIconBrightness: Brightness.light,
     systemNavigationBarColor: Colors.black,
     systemNavigationBarIconBrightness: Brightness.light,
+    systemNavigationBarDividerColor: Colors.transparent,
   );
   static void updateSystemUIOverlayStyle(bool isDark) {
     SystemChrome.setSystemUIOverlayStyle(

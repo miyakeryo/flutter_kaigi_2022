@@ -72,15 +72,6 @@ class _MyMaterialAppState extends State<_MyMaterialApp>
   @override
   void didChangePlatformBrightness() {
     _updateSystemUIOverlayStyle();
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _updateSystemUIOverlayStyle();
-    }
+    if (mounted) setState(() {});
   }
 }
