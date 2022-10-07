@@ -41,6 +41,11 @@ class OreTheme extends StatelessWidget {
   }
 }
 
+// extension ThemeDataOreExtension on ThemeData {
+//   OreThemeData get oreTheme =>
+//       brightness == Brightness.dark ? OreThemeData.dark : OreThemeData.light;
+// }
+
 class OreThemeData {
   final Color settingsTileColor;
   final Color settingsBackgroundColor;

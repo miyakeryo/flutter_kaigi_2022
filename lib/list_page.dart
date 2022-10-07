@@ -33,7 +33,7 @@ class _ListPageState extends State<ListPage> {
         itemCount: 30,
         itemBuilder: (context, i) {
           Widget widget = MyListItem(
-            title: 'タイトル${i + 1}',
+            title: 'タイトル',
             description: 'ここに説明がはいります。ここに説明がはいります。ここに説明がはいります。',
             createdAt: DateTime.now().subtract(Duration(minutes: i)),
           );

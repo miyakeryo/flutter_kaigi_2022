@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
+import 'kaigi_channel.dart';
 import 'my_theme.dart';
 
 void main() {
@@ -66,7 +67,12 @@ class _MyMaterialAppState extends State<_MyMaterialApp>
 
   void _updateSystemUIOverlayStyle() {
     final myThemeSettings = context.read<MyThemeSettings>();
-    MyThemeData.updateSystemUIOverlayStyle(myThemeSettings.isDark);
+    KaigiChannel().getNavigationBarHeight().then((height) {
+      MyThemeData.updateSystemUIOverlayStyle(
+        isDark: myThemeSettings.isDark,
+        use3ButtonsNavigation: (height ?? 44) > 40,
+      );
+    });
   }
 
   @override

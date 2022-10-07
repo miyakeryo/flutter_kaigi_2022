@@ -14,7 +14,7 @@ class MyListItem extends StatelessWidget {
     required this.createdAt,
   });
 
-  static final _datetimeFormat = DateFormat('yyyy M/d H:mm');
+  static final _datetimeFormat = DateFormat('yyyy/M/d H:mm');
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +22,20 @@ class MyListItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(width: 8),
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              child: Image.network(
-                'https://www.dummyimage.online/180x180/666666/ffffff',
-                width: 48,
-                height: 48,
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                child: Image.network(
+                  'https://www.dummyimage.online/180x180/666666/ffffff',
+                  width: 48,
+                  height: 48,
+                ),
               ),
             ),
             const SizedBox(width: 8),
@@ -55,6 +58,7 @@ class MyListItem extends StatelessWidget {
                       color: oreTheme.listDescriptionColor,
                     ),
                   ),
+                  const SizedBox(height: 2),
                   Text(
                     _datetimeFormat.format(createdAt),
                     style: TextStyle(
@@ -67,7 +71,7 @@ class MyListItem extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         const Divider(height: 1),
       ],
     );

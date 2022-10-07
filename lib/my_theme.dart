@@ -2,40 +2,74 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'kaigi_channel.dart';
+
 abstract class MyThemeData {
   MyThemeData._();
 
   static final light = ThemeData.from(
     colorScheme: const ColorScheme.light(
-      primary: Colors.blue,
+      primary: Colors.green,
       background: Colors.white,
     ),
   );
 
   static final dark = ThemeData.from(
     colorScheme: const ColorScheme.dark(
-      primary: Colors.blue,
+      primary: Colors.green,
       background: Color(0xFF202020),
     ),
   );
 
-  static const _systemUiOverlayStyleLight = SystemUiOverlayStyle(
-    statusBarBrightness: Brightness.light,
-    statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: Colors.white,
-    systemNavigationBarIconBrightness: Brightness.dark,
-    systemNavigationBarDividerColor: Color(0xFFE0E0E0),
-  );
-  static const _systemUiOverlayStyleDark = SystemUiOverlayStyle(
-    statusBarBrightness: Brightness.dark,
-    statusBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: Colors.black,
-    systemNavigationBarIconBrightness: Brightness.light,
-    systemNavigationBarDividerColor: Colors.transparent,
-  );
-  static void updateSystemUIOverlayStyle(bool isDark) {
-    SystemChrome.setSystemUIOverlayStyle(
-        isDark ? _systemUiOverlayStyleDark : _systemUiOverlayStyleLight);
+  static void updateSystemUIOverlayStyle({
+    required bool isDark,
+    required bool use3ButtonsNavigation,
+  }) {
+    if (isDark) {
+      SystemChrome.setSystemUIOverlayStyle(
+        use3ButtonsNavigation
+            ? const SystemUiOverlayStyle(
+                statusBarBrightness: Brightness.dark,
+                statusBarIconBrightness: Brightness.light,
+                systemNavigationBarColor: Colors.black,
+                systemNavigationBarIconBrightness: Brightness.light,
+                systemNavigationBarDividerColor: Colors.transparent,
+              )
+            : const SystemUiOverlayStyle(
+                statusBarBrightness: Brightness.dark,
+                statusBarIconBrightness: Brightness.light,
+                systemNavigationBarColor: Colors.transparent,
+                systemNavigationBarIconBrightness: Brightness.light,
+                systemNavigationBarDividerColor: Colors.transparent,
+              ),
+      );
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(
+        use3ButtonsNavigation
+            ? const SystemUiOverlayStyle(
+                statusBarBrightness: Brightness.light,
+                statusBarIconBrightness: Brightness.dark,
+                systemNavigationBarColor: Colors.white,
+                systemNavigationBarIconBrightness: Brightness.dark,
+                systemNavigationBarDividerColor: Color(0xFFE0E0E0),
+              )
+            : const SystemUiOverlayStyle(
+                statusBarBrightness: Brightness.light,
+                statusBarIconBrightness: Brightness.dark,
+                systemNavigationBarColor: Colors.transparent,
+                systemNavigationBarIconBrightness: Brightness.dark,
+                systemNavigationBarDividerColor: Colors.transparent,
+              ),
+      );
+    }
+    if (use3ButtonsNavigation) {
+      SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual,
+        overlays: SystemUiOverlay.values,
+      );
+    } else {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    }
   }
 }
 
@@ -51,7 +85,13 @@ class MyThemeSettings extends ChangeNotifier {
   set themeMode(ThemeMode themeMode) {
     _themeMode = themeMode;
     prefs.setInt('ThemeMode', themeMode.index);
-    MyThemeData.updateSystemUIOverlayStyle(isDark);
+    KaigiChannel().getNavigationBarHeight().then((height) {
+      debugPrint('🐤 getNavigationBarHeight: $height');
+      MyThemeData.updateSystemUIOverlayStyle(
+        isDark: isDark,
+        use3ButtonsNavigation: (height ?? 44) > 40,
+      );
+    });
     notifyListeners();
   }
 
