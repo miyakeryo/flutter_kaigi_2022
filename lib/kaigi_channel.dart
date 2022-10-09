@@ -10,7 +10,7 @@ class KaigiChannel {
 
   Future<double?> getNavigationBarHeight() async {
     try {
-      return _methodChannel.invokeMethod('getNavigationBarHeight');
+      return await _methodChannel.invokeMethod('getNavigationBarHeight');
     } on PlatformException catch (_) {
       return null;
     }
