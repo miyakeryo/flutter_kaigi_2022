@@ -29,15 +29,11 @@ abstract class MyThemeData {
       SystemChrome.setSystemUIOverlayStyle(
         use3ButtonsNavigation
             ? const SystemUiOverlayStyle(
-                statusBarBrightness: Brightness.dark,
-                statusBarIconBrightness: Brightness.light,
                 systemNavigationBarColor: Colors.black,
                 systemNavigationBarIconBrightness: Brightness.light,
                 systemNavigationBarDividerColor: Colors.transparent,
               )
             : const SystemUiOverlayStyle(
-                statusBarBrightness: Brightness.dark,
-                statusBarIconBrightness: Brightness.light,
                 systemNavigationBarColor: Colors.transparent,
                 systemNavigationBarIconBrightness: Brightness.light,
                 systemNavigationBarDividerColor: Colors.transparent,
@@ -47,15 +43,11 @@ abstract class MyThemeData {
       SystemChrome.setSystemUIOverlayStyle(
         use3ButtonsNavigation
             ? const SystemUiOverlayStyle(
-                statusBarBrightness: Brightness.light,
-                statusBarIconBrightness: Brightness.dark,
                 systemNavigationBarColor: Colors.white,
                 systemNavigationBarIconBrightness: Brightness.dark,
                 systemNavigationBarDividerColor: Color(0xFFE0E0E0),
               )
             : const SystemUiOverlayStyle(
-                statusBarBrightness: Brightness.light,
-                statusBarIconBrightness: Brightness.dark,
                 systemNavigationBarColor: Colors.transparent,
                 systemNavigationBarIconBrightness: Brightness.dark,
                 systemNavigationBarDividerColor: Colors.transparent,
