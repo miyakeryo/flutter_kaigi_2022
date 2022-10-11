@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'kaigi_channel.dart';
+import 'ore_theme.dart';
 
 abstract class MyThemeData {
   MyThemeData._();
@@ -12,14 +13,14 @@ abstract class MyThemeData {
       primary: Colors.green,
       background: Colors.white,
     ),
-  );
+  ).copyWith(extensions: [OreThemeData.light]);
 
   static final dark = ThemeData.from(
     colorScheme: const ColorScheme.dark(
       primary: Colors.green,
       background: Color(0xFF202020),
     ),
-  );
+  ).copyWith(extensions: [OreThemeData.dark]);
 
   static void updateSystemUIOverlayStyle({
     required bool isDark,

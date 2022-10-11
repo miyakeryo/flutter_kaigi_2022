@@ -18,7 +18,7 @@ class MyListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final oreTheme = OreTheme.of(context);
+    final oreTheme = Theme.of(context).oreTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

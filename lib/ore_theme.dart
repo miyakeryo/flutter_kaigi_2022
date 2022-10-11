@@ -1,52 +1,10 @@
 import 'package:flutter/material.dart';
 
-class _InheritedOreTheme extends InheritedTheme {
-  const _InheritedOreTheme({
-    required this.theme,
-    required super.child,
-  });
-
-  final OreTheme theme;
-
-  @override
-  Widget wrap(BuildContext context, Widget child) {
-    return OreTheme(data: theme.data, child: child);
-  }
-
-  @override
-  bool updateShouldNotify(_InheritedOreTheme old) =>
-      theme.data != old.theme.data;
+extension ThemeDataOreExtension on ThemeData {
+  OreThemeData get oreTheme => extension<OreThemeData>()!;
 }
 
-class OreTheme extends StatelessWidget {
-  final OreThemeData data;
-  final Widget child;
-
-  const OreTheme({super.key, required this.data, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return _InheritedOreTheme(theme: this, child: child);
-  }
-
-  static OreThemeData of(BuildContext context) {
-    final inheritedTheme =
-        context.dependOnInheritedWidgetOfExactType<_InheritedOreTheme>();
-    return inheritedTheme?.theme.data ?? _fallback(context);
-  }
-
-  static OreThemeData _fallback(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return isDark ? OreThemeData.dark : OreThemeData.light;
-  }
-}
-
-// extension ThemeDataOreExtension on ThemeData {
-//   OreThemeData get oreTheme =>
-//       brightness == Brightness.dark ? OreThemeData.dark : OreThemeData.light;
-// }
-
-class OreThemeData {
+class OreThemeData extends ThemeExtension<OreThemeData> {
   final Color settingsTileColor;
   final Color settingsBackgroundColor;
   final Color listTitleColor;
@@ -75,6 +33,7 @@ class OreThemeData {
     listCreatedAtColor: Color(0xFFC6C6C6),
   );
 
+  @override
   OreThemeData copyWith({
     Color? settingsTileColor,
     Color? settingsBackgroundColor,
@@ -93,21 +52,19 @@ class OreThemeData {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is OreThemeData &&
-          runtimeType == other.runtimeType &&
-          settingsTileColor == other.settingsTileColor &&
-          settingsBackgroundColor == other.settingsBackgroundColor &&
-          listTitleColor == other.listTitleColor &&
-          listDescriptionColor == other.listDescriptionColor &&
-          listCreatedAtColor == other.listCreatedAtColor;
-
-  @override
-  int get hashCode =>
-      settingsTileColor.hashCode ^
-      settingsBackgroundColor.hashCode ^
-      listTitleColor.hashCode ^
-      listDescriptionColor.hashCode ^
-      listCreatedAtColor.hashCode;
+  ThemeExtension<OreThemeData> lerp(
+      ThemeExtension<OreThemeData>? other, double t) {
+    if (other is! OreThemeData) return this;
+    return OreThemeData(
+      settingsTileColor:
+          Color.lerp(settingsTileColor, other.settingsTileColor, t)!,
+      settingsBackgroundColor: Color.lerp(
+          settingsBackgroundColor, other.settingsBackgroundColor, t)!,
+      listTitleColor: Color.lerp(listTitleColor, other.listTitleColor, t)!,
+      listDescriptionColor:
+          Color.lerp(listDescriptionColor, other.listDescriptionColor, t)!,
+      listCreatedAtColor:
+          Color.lerp(listCreatedAtColor, other.listCreatedAtColor, t)!,
+    );
+  }
 }

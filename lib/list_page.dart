@@ -14,6 +14,7 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('リストページ'),
@@ -38,12 +39,14 @@ class _ListPageState extends State<ListPage> {
             createdAt: DateTime.now().subtract(Duration(minutes: i)),
           );
           if (i % 3 == 2) {
-            widget = OreTheme(
-              data: OreTheme.of(context).copyWith(
-                listTitleColor: Colors.green,
-                listDescriptionColor: Colors.deepPurpleAccent,
-                listCreatedAtColor: Colors.orange,
-              ),
+            widget = Theme(
+              data: theme.copyWith(extensions: [
+                theme.oreTheme.copyWith(
+                  listTitleColor: Colors.green,
+                  listDescriptionColor: Colors.deepPurpleAccent,
+                  listCreatedAtColor: Colors.orange,
+                )
+              ]),
               child: widget,
             );
           }

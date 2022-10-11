@@ -15,7 +15,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final myThemeSettings = context.read<MyThemeSettings>();
-    final oreTheme = OreTheme.of(context);
+    final oreTheme = Theme.of(context).oreTheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('外観モード設定'),
