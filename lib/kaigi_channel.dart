@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 
 class KaigiChannel {
@@ -9,6 +11,7 @@ class KaigiChannel {
   factory KaigiChannel() => _instance;
 
   Future<double?> getNavigationBarHeight() async {
+    if (!Platform.isAndroid) return null;
     try {
       return await _methodChannel.invokeMethod('getNavigationBarHeight');
     } on PlatformException catch (_) {

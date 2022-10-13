@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +28,7 @@ abstract class MyThemeData {
     required bool isDark,
     required bool use3ButtonsNavigation,
   }) {
+    if (!Platform.isAndroid) return;
     if (isDark) {
       SystemChrome.setSystemUIOverlayStyle(
         use3ButtonsNavigation
